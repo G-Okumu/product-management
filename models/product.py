@@ -5,10 +5,19 @@ class Product(db.Model):
     __tablename__ = "products"
     
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
+    name = db.Column(db.String(4), nullable=False)
     price = db.Column(db.Float)
-    measurement_unit = db.Column(db.String)
-    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
+    measurement_unit = db.Column(db.String(10))
+    category_id = db.Column(db.Integer, db.ForeignKey("categories.id")) # one to many, where relationship is done
+    __table_args__ = (db.CheckConstraint("price >= 1", name="product_price_must_be_greater_than_one"),)
+
+    
+    category = db.relationship("Category", back_populates="products") # this is where relationship attribute connection is done
+    
+    # constraint
+    
+    
+    
     
     # def __init__(self, name: str, price: float, quantity: int, measurement_unit: str, category_id: int,id: int = None):
     #     self.id = id

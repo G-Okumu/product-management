@@ -7,6 +7,8 @@ class Category(db.Model):
     name = db.Column(db.String)
     size = db.Column(db.Integer)
     
+    products = db.relationship("Product", back_populates="category")
+    
     # def __init__(self, name: str, size: int, type: str, products: list = None,id: int = None):
     #     self.id  = id
     #     self.name = name
